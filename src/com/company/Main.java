@@ -40,7 +40,9 @@ public class Main {
         String sentence = scanner.nextLine();
         System.out.println(countWords(sentence) + " words");
         System.out.println(countDistinctVowels(sentence) + " unique vowels");
+        System.out.println(countDistinctVowelsv2(sentence) + " unique vowels using version 2D");
         System.out.println("The vowels are: " + getDistinctVowels(sentence));
+        System.out.println("The sentence reversed is: " + reverseSentence(sentence));
         System.out.println(countLetters(sentence) + " letters");
 
         /*
@@ -208,6 +210,10 @@ public class Main {
         return count;
     }
 
+    // If you are truly lazy, this version 2 of countDistinctVowels is for you.
+    public static int countDistinctVowelsv2(String sentence) {
+        return getDistinctVowels(sentence).length();
+    }
     /*
         Get Distinct Vowels
         This method will return a string representation detailing which vowels were found in the string provided.
