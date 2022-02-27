@@ -5,11 +5,22 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        int menu = Integer.parseInt(JOptionPane.showInputDialog("Pick a option and enter your word or sentence \n 1. Word \n 2. Sentence", 1));
+        Object menu = Integer.parseInt(JOptionPane.showInputDialog("Pick a option and enter your word or sentence\n1. Word\n2. Sentence\n 0. Exit", 1));
 
-        switch (menu) {
+        if (!(menu instanceof Integer) && ((int)menu < 0 && (int)menu > 9)) {
+            menu = -1;
+        }
+
+        switch ((int)menu) {
             case 1:
                 String word = getUserInput("word");
+
+                for (int i = 0; i < word.length(); i++) {
+                    if (!Character.isLetter(word.charAt(i))) {
+                        word = getUserInput("word", "Please enter ONLY a");
+                    }
+                }
+
                 String firstLetter = getFirstLetter(word),
                         lastLetter = getLastLetter(word),
                         middleLetter = getMiddleLetter(word),
@@ -40,7 +51,7 @@ public class Main {
 //                        null,
 //                        "The number of words in your sentence is:\n " +countWords+ "\n\n" +"Your sentence backwards is:\n " +Backwards+ "\n\n" +"These are the following vowels in your sentence:\n " +vowels+ "\n\n" +"This is your sentence with all the same consecutive letters removed:\n "+removeLetters);
                 break;
-            case 3:
+            case 0:
                 System.out.println("Goodbye!");
                 System.exit(0);
                 break;
@@ -91,7 +102,14 @@ public class Main {
     }
 
     public static String getUserInput(String inputType) {
-        return JOptionPane.showInputDialog("Please enter your " + inputType + " here:");
+        return getUserInput(inputType, "Please enter a");
+    }
+
+    public static String getUserInput(String inputType, String message) {
+        if (message.isEmpty()) { // preventing nulls
+            message = "Please enter a";
+        }
+        return JOptionPane.showInputDialog(null,message + " " + inputType + " here:", "Enter a " + inputType, 1);
     }
 
     public static String getLastLetter(String userInput) {
